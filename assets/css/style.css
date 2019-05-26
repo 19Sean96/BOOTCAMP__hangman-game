@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    overflow: hidden;
+
+}
+
+main {
+    width: 100vw;
+
+}
+
+.game-body {
+    width: 65%;
+    height: 75vh;
+    background-color: blanchedalmond;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px saddlebrown solid;
+    /* filter: invert(100%); */
+    box-shadow: 0px 3px 10px rgba(0,0,0,.8);
+
+}
+
+.headline {
+    font-family: 'Raleway', sans-serif;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    /*text-shadow: 4px 3px 0px rgb(197, 159, 159), 9px 8px 0px rgba(0,0,0,0.15);*/
+    color: #b285c7;
+    text-shadow: -10px 10px 0px rgba(130, 230, 0, 0.616),
+                 -20px 20px 0px rgba(59, 204, 1, 0.425),
+                 -30px 30px 0px rgba(0, 189, 0, 0.192),
+                 -40px 40px 0px rgba(17, 144, 5, 0.103);
+    transform: translate(-50%, -80%);
+    font-size: 4rem;
+    padding: 3% 3%;
+}
+
+
+#colorExample {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    background-color: tomato;
+    width: 40vw;
+    height: 5vw;
+    box-shadow: -5px 5px 0px rgba(255, 99, 71, 0.9),
+                -10px 10px 0px rgba(255, 99, 71, 0.8),
+                -15px 15px 0px rgba(255, 99, 71, 0.7),
+                -20px 20px 0px rgba(255, 99, 71, 0.6),
+                -25px 25px 0px rgba(255, 99, 71, 0.5);
+
+}
