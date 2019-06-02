@@ -1,7 +1,8 @@
 * {
     margin: 0;
     overflow: hidden;
-
+    font-family: 'Libre Franklin', sans-serif;
+    filter: none;
 }
 
 main {
@@ -12,30 +13,32 @@ main {
 .game-body {
     width: 65%;
     height: 75vh;
-    background-color: blanchedalmond;
+    /* background-color: blanchedalmond; */
+    background: #ee0979;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ff6a00, #ee0979); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: 1px saddlebrown solid;
+    border-radius: 2rem;
     /* filter: invert(100%); */
     box-shadow: 0px 3px 10px rgba(0,0,0,.8);
 
 }
 
 .headline {
-    font-family: 'Raleway', sans-serif;
+    /* font-family: 'Raleway', sans-serif; */
+    font-weight: 100;
     position: absolute;
     top: 20%;
     left: 50%;
     width: 100%;
     text-align: center;
-    /*text-shadow: 4px 3px 0px rgb(197, 159, 159), 9px 8px 0px rgba(0,0,0,0.15);*/
-    color: #b285c7;
-    text-shadow: -10px 10px 0px rgba(130, 230, 0, 0.616),
-                 -20px 20px 0px rgba(59, 204, 1, 0.425),
-                 -30px 30px 0px rgba(0, 189, 0, 0.192),
-                 -40px 40px 0px rgba(17, 144, 5, 0.103);
+    text-shadow: 1px 4px 6px #f66, 0 0 0 #000, 1px 4px 6px #f66;
+    color: #fff;
     transform: translate(-50%, -80%);
     font-size: 4rem;
     padding: 3% 3%;
@@ -47,13 +50,22 @@ main {
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
+    border-radius: 2rem;
     background-color: tomato;
     width: 40vw;
     height: 5vw;
-    box-shadow: -5px 5px 0px rgba(255, 99, 71, 0.9),
-                -10px 10px 0px rgba(255, 99, 71, 0.8),
-                -15px 15px 0px rgba(255, 99, 71, 0.7),
-                -20px 20px 0px rgba(255, 99, 71, 0.6),
-                -25px 25px 0px rgba(255, 99, 71, 0.5);
 
+}
+
+.example-container {
+    margin: auto;
+    /* background: blue; */
+    width: 80%;
+    height: 90%;
+}
+
+.guessArea {
+    text-align: center;
+    line-height: 5vw;
+    font-size: 3rem;
 }
