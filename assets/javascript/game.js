@@ -2,13 +2,13 @@
  * ----------VARIABLES--------------- * 
  *********************************************/
 
+ 
 //Function Expressions
 
-function game(wordToGuess, userWord, typeBox) {
-
+function game(wordToGuess, userWord, guessRemaining) {
+    let lost = false;
+    let won = false;
     console.log(typeof(userWord), userWord);
-    let guessRemaining = 10;
-
     // $(typeBox).click(function() { 
     //     guessRemaining--;
     //     console.log(guessRemaining);
@@ -19,29 +19,80 @@ function game(wordToGuess, userWord, typeBox) {
 
     $('body').keydown(function (e) { 
         let wordCompare;
+        let alreadyGuessed = false;
         const key = event.key; // "a", "1", "Shift", etc.
         console.log("User pressed: " + key, guessRemaining);
         wordCompare = checkLetterMatch(key, wordToGuess, userWord, guessRemaining);
+        console.log(userWord, wordCompare, wordToGuess);
 
-        if (wordCompare === userWord) {
-            guessRemaining--;
-            $('.guessCounter').text(guessRemaining);
+        if (!won && !lost) {
+            if (userWord !== wordCompare) {
+                userWord = wordCompare;
+                $('.guessArea').text(userWord);
+            } else if (wordCompare === userWord && !lost) {
+                if(guessRemaining > 0) {
+                    let count = 0;
+                    for (let i = 0; i < userWord.length; i++) {
+                        if (key === userWord[i]) {
+                            alreadyGuessed = true;
+                        }
+                    }
+                    if (!alreadyGuessed) {
+                        guessRemaining--;
+                        $('.guessCounter').text(guessRemaining);
 
-            if (guessRemaining === 0) {
-                input = prompt("You Lose! Try Again? (y/n)");
-                if (rematchChoice(input)) {
-                    location.reload();
-                } else {
-                    $('h3').text("Thanks for Playing!");
+                        resetAlreadyGuessed();
+                    }
+                    alreadyGuessed = false;
+                } 
+                if (guessRemaining <= 0) {
+                    $('.directions').text("You Lose! Try Again?");
+                    $('.guessArea').text('"' + wordToGuess + '"');
+                    $('#resetData').css("display", "block");
+                    lost = true;
+                    lossCount++;
                 }
+            } 
+            
+            if (userWord === wordToGuess && !won) {
+                $('.directions').text("You Win! Play Again?");
+                $('#resetData').css("display", "block");
+                won = true
+                winCount++;
             }
         }
-        userWord = wordCompare;
 
-        $(".guessArea").text(userWord);
     });
 
 };
+
+let resetAlreadyGuessed = function() {
+    alreadyGuessed = false;
+}
+
+let resetGame = function() {
+    $('.wins').text(winCount);
+    $('.losses').text(lossCount);
+    $('.directions').text(directions);
+    $('.guessCounter').text(guessRemaining);
+    colorMatch = document.body.querySelector('#colorExample');
+    guessArea = document.body.querySelector(".guessArea");
+    wordGenerated = randomizer(colorList);
+    letterCount = wordGenerated.length;
+    wordTranslatedUnderscore = underScoreCount(letterCount);
+    $(".guessArea").text(wordTranslatedUnderscore);
+    wordOutput = $(".guessArea").text();
+    setColor(wordGenerated, colorMatch);
+    game(wordGenerated, wordOutput, guessRemaining);
+    $('#resetData').css("display", "none");
+
+}
+
+let resetScore = function() {
+    winCount = 0;
+    lossCount = 0;
+    resetGame();
+}
 
 let rematchChoice = function(input) {
     $('body').keyup(function (f) {
@@ -60,9 +111,9 @@ let fillIn = function(entry, letter, i) {
 }
 
 let updateGuess = function(word, letter, i) {
-    wordArr = word.split("");
+    let wordArr = word.split("");
     wordArr[i] = letter;
-    wordStr = wordArr.join("");
+    let wordStr = wordArr.join("");
     return wordStr;
 }
 
@@ -87,8 +138,12 @@ let checkLetterMatch = function(key, word, userWord, guessRemaining) {
 }
 
 let randomizer = function(list) {
+//   array.splice(Math.floor(Math.random()*array.length), 1);
 
     randomWord = list[Math.floor(Math.random() * list.length)];
+    // console.log(list.indexOf(randomWord), randomWord);
+    // cutWord = list.splice(randomWord, 1);
+    // console.log(cutWord);
     return randomWord;
 };
 
@@ -106,10 +161,17 @@ let setColor = function(color, image) {
     image.style.backgroundColor = color;
 }
 
+let makeArrLowerCase = function(colorList) {
+    for (let i = 0; i < colorList.length; i++) {
+        colorList[i] = colorList[i].toLowerCase();
+    }
+    return colorList;
+}
+
 
 //Essential Variables
 
-const colorList = [
+let colorList = [
     "Firebrick",
     "Chocolate",
     "Lime",
@@ -118,7 +180,7 @@ const colorList = [
     "Gold",
     "Pink",
     "Coral",
-    "Tomato ",
+    "Tomato",
     "Orange",
     "Maroon",    
     "Yellow",
@@ -150,6 +212,14 @@ const colorList = [
     "Beige",
     "Silver",
 ];
+colorList = makeArrLowerCase(colorList);
+
+
+let guessRemaining = 10;
+let winCount = 0;
+let lossCount = 0;
+
+let directions = $('.directions').text();
 
 let colorMatch = document.body.querySelector('#colorExample');
 let guessArea = document.body.querySelector(".guessArea");
@@ -158,18 +228,32 @@ let letterCount = wordGenerated.length;
 let wordTranslatedUnderscore = underScoreCount(letterCount);
 $(".guessArea").text(wordTranslatedUnderscore);
 let wordOutput = $(".guessArea").text();
-// let wordOutput = ;
 
 /******************************************
  * ----------GAME SET UP--------------- * 
  *********************************************/
+
+console.log(colorList);
 console.log(wordOutput);
 setColor(wordGenerated, colorMatch);
+$('.guessCounter').text(guessRemaining);
+$('.wins').text(winCount);
+$('.losses').text(lossCount);
 console.log(letterCount + " " + wordGenerated);
-// guessArea.appendChild(wordOutput);
 
 /******************************************
  * ----------GAME--------------- * 
  *********************************************/
 
- game(wordGenerated, wordOutput, document.body.querySelector(".game-body"));
+ game(wordGenerated, wordOutput, guessRemaining);
+
+
+ $('#resetData').click(function () { 
+    resetGame();
+
+});
+
+$('#resetScore').click(function () { 
+    resetScore();
+
+});

@@ -34,5 +34,7 @@ main.addEventListener('mousemove', function() {
 
     main.style.background = "linear-gradient( " + gradientDirection + ", rgb(" + x1/3 + "," + y1/7 + ",27), rgb(" + x2/5 + "," + y2/4 + ",200))";
     // section.style.background = "linear-gradient( " + gradientDirection + ", rgb(" + x1/3 + "," + y1/7 + ",27), rgb(" + x2/5 + "," + y2/4 + ",200))";
-})
+
+
+});
 
